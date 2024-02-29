@@ -1,0 +1,6 @@
+<div class="modal">
+  <div class="modal__top">
+    <button class="button__close" (click)="onClose()">Zatvori</button>
+  </div>
+  <app-form (closeModal)="onClose()" [modalType]="modalType"></app-form>
+</div>

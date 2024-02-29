@@ -1,0 +1,7 @@
+<div class="dot-overlay" *ngIf="isLoading$ | async">
+  <div
+    *ngFor="let dot of dots; let i = index"
+    class="dot"
+    [style.animation-delay]="i * delay + 's'"
+  ></div>
+</div>

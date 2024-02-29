@@ -1,0 +1,53 @@
+@import "../../variables";
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: $very-light-blue;
+}
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  padding-top: 150px;
+
+  &__input {
+    padding: 15px 10px;
+    width: 400px;
+    border: none;
+    border-bottom: 1px solid $dark-blue;
+    outline: none;
+    color: $dark-blue;
+    font-size: 1.1rem;
+  }
+  &__button {
+    width: 200px;
+    padding: 10px 30px;
+    border: none;
+    background-color: $blue;
+    color: $very-light-blue;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $dark-blue;
+    }
+  }
+  &__text {
+    color: $blue;
+  }
+  &__redirect {
+    border: none;
+    background-color: transparent;
+    color: $dark-blue;
+    outline: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-left: 5px;
+
+    &:hover {
+      color: $light-blue;
+    }
+  }
+}

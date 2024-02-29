@@ -1,0 +1,29 @@
+<div class="container">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="loginForm">
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Email"
+      class="loginForm__input"
+      id="email"
+    />
+    <input
+      type="password"
+      formControlName="lozinka"
+      placeholder="Lozinka"
+      class="loginForm__input"
+      id="lozinka"
+    />
+    <button type="submit" class="loginForm__button">Prijava</button>
+    <span class="loginForm__text"
+      >Nemas nalog?
+      <button
+        (click)="navigateToRegister()"
+        type="button"
+        class="loginForm__redirect"
+      >
+        Registruj se
+      </button>
+    </span>
+  </form>
+</div>

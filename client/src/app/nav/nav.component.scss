@@ -1,0 +1,32 @@
+@import "../../variables";
+
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $dark-blue;
+  height: 100px;
+  position: relative;
+
+  &__heading {
+    color: $very-light-blue;
+    text-align: center;
+  }
+  &__button {
+    position: absolute;
+    background-color: transparent;
+    color: $very-light-blue;
+    border-color: $very-light-blue;
+    border-radius: 5px;
+    padding: 10px 30px;
+    right: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $very-light-blue;
+      color: $dark-blue;
+    }
+  }
+}

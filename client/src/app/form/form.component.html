@@ -1,0 +1,159 @@
+<form [formGroup]="fakturaForm" (ngSubmit)="onSubmit()" class="form">
+  <div class="form-row">
+    <!-- Fakture Row -->
+    <div class="form-row__control">
+      <label for="broj">Broj:</label>
+      <input type="number" id="broj" formControlName="broj" />
+    </div>
+    <div class="form-row__control">
+      <label for="datum">Datum:</label>
+      <input type="date" id="datum" formControlName="datum" />
+    </div>
+    <div class="form-row__control">
+      <label for="partner">Partner:</label>
+      <input type="text" id="partner" formControlName="partner" />
+    </div>
+    <div class="form-row__control">
+      <label for="iznosBezPdv">Iznos Bez PDV:</label>
+      <input type="number" id="iznosBezPdv" formControlName="iznosBezPdv" />
+    </div>
+    <div class="form-row__control">
+      <label for="postoRabata">Posto Rabata:</label>
+      <input type="number" id="postoRabata" formControlName="postoRabata" />
+    </div>
+    <div class="form-row__control">
+      <label for="rabat">Rabat:</label>
+      <input type="number" id="rabat" formControlName="rabat" />
+    </div>
+    <div class="form-row__control">
+      <label for="iznosSaRabatomBezPdv">Iznos Sa Rabatom Bez PDV:</label>
+      <input
+        type="number"
+        id="iznosSaRabatomBezPdv"
+        formControlName="iznosSaRabatomBezPdv"
+      />
+    </div>
+    <div class="form-row__control">
+      <label for="pdv">PDV:</label>
+      <input type="number" id="pdv" formControlName="pdv" />
+    </div>
+    <div class="form-row__control">
+      <label for="ukupno">Ukupno:</label>
+      <input type="number" id="ukupno" formControlName="ukupno" />
+    </div>
+  </div>
+  <div class="container__info">
+    <span>Stavke Fakture</span>
+    <button (click)="dodajStavkuFakture()" class="add__button" type="button">
+      Dodaj Stavku
+    </button>
+  </div>
+
+  <!-- Stavke Fakture Row -->
+  <div
+    formArrayName="stavkeFakture"
+    *ngIf="stavkeFakture"
+    class="stavkeFakture__container"
+  >
+    <div *ngFor="let stavkaGroup of stavkeFakture.controls; let i = index">
+      <div [formGroup]="getStavkaFormGroup(stavkaGroup)" class="form-row">
+        <div class="form-row__control">
+          <label for="rbr{{ i }}">Rbr:</label>
+          <input type="number" id="rbr{{ i }}" formControlName="rbr" />
+        </div>
+        <div class="form-row__control">
+          <label for="nazivArtikla{{ i }}">Naziv Artikla:</label>
+          <input
+            type="text"
+            id="nazivArtikla{{ i }}"
+            formControlName="nazivArtikla"
+          />
+        </div>
+        <div class="form-row__control">
+          <label for="kolicina{{ i }}">Kolicina:</label>
+          <input
+            type="number"
+            id="kolicina{{ i }}"
+            formControlName="kolicina"
+            (input)="onStavkaFaktureChange(i)"
+          />
+        </div>
+        <div class="form-row__control">
+          <label for="cijena{{ i }}">Cijena:</label>
+          <input
+            type="number"
+            id="cijena{{ i }}"
+            formControlName="cijena"
+            (input)="onStavkaFaktureChange(i)"
+          />
+        </div>
+        <div class="form-row__control">
+          <label for="iznosBezPdv{{ i }}">Iznos Bez Pdv:</label>
+          <input
+            type="number"
+            id="iznosBezPdv{{ i }}"
+            formControlName="iznosBezPdv"
+            (input)="onStavkaFaktureChange(i)"
+          />
+        </div>
+        <div class="form-row__control">
+          <label for="postoRabata{{ i }}">Posto Rabata:</label>
+          <input
+            type="number"
+            id="postoRabata{{ i }}"
+            formControlName="postoRabata"
+            (input)="onStavkaFaktureChange(i)"
+          />
+        </div>
+        <div class="form-row__control">
+          <label for="iznosSaRabatomBezPdv{{ i }}"
+            >Iznos Sa Rabatom Bez PDV:</label
+          >
+          <input
+            type="number"
+            id="iznosSaRabatomBezPdv{{ i }}"
+            formControlName="iznosSaRabatomBezPdv"
+            (input)="onStavkaFaktureChange(i)"
+          />
+        </div>
+        <div class="form-row__control">
+          <label for="rabat{{ i }}">Rabat:</label>
+          <input
+            type="number"
+            id="rabat{{ i }}"
+            formControlName="rabat"
+            (input)="onStavkaFaktureChange(i)"
+          />
+        </div>
+        <div class="form-row__control">
+          <label for="pdv{{ i }}">PDV:</label>
+          <input
+            type="number"
+            id="pdv{{ i }}"
+            formControlName="pdv"
+            (input)="onStavkaFaktureChange(i)"
+          />
+        </div>
+        <div class="form-row__control">
+          <label for="ukupno{{ i }}">Ukupno:</label>
+          <input
+            type="number"
+            id="ukupno{{ i }}"
+            formControlName="ukupno"
+            (input)="onStavkaFaktureChange(i)"
+          />
+        </div>
+        <div class="form-row__control">
+          <button (click)="obrisiStavkuFakture(i)" class="delete__button">
+            Obrisi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="submit__group">
+    <button type="submit" class="add__button">
+      {{ modalType == "edit" ? "Sacuvaj Izmjene" : "Dodaj Fakturu" }}
+    </button>
+  </div>
+</form>

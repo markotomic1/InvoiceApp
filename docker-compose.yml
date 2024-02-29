@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/data/db
+    environment:
+      - POSTGRES_HOST=127.0.0.1
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespw
+      - POSTGRES_DB=zadatakdb
+
+  auth-server:
+    container_name: auth-server
+    build:
+      context: ./AuthServer/
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    ports:
+      - 5001:8080
+    depends_on:
+      - postgres
+
+  resource-server:
+    container_name: resource-server
+    build:
+      context: ./API/
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    ports:
+      - 5002:8080
+    depends_on:
+      - postgres
+
+  client:
+    container_name: client
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
+    expose:
+      - 80
+    ports:
+      - 3000:80
+
+volumes:
+  postgres-data:

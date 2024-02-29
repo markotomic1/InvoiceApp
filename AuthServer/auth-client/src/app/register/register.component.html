@@ -1,0 +1,57 @@
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="register()" class="registerForm">
+    <input
+      type="text"
+      formControlName="ime"
+      placeholder="Ime"
+      class="registerForm__input"
+      id="ime"
+    />
+    <input
+      type="text"
+      formControlName="prezime"
+      placeholder="Prezime"
+      class="registerForm__input"
+      id="prezime"
+    />
+    <input
+      type="text"
+      formControlName="brojTelefona"
+      placeholder="Broj Telefona"
+      class="registerForm__input"
+      id="brojTelefona"
+    />
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Email"
+      class="registerForm__input"
+      id="email"
+    />
+    <input
+      type="password"
+      formControlName="lozinka"
+      placeholder="Lozinka"
+      class="registerForm__input"
+      id="lozinka"
+    />
+    <input
+      type="password"
+      formControlName="potvrdaLozinke"
+      placeholder="Potvrdi lozinku"
+      class="registerForm__input"
+      id="potvrdiLozinku"
+    />
+    <button type="submit" class="registerForm__button">Registruj se</button>
+    <span
+      >Posjedujes nalog?
+      <button
+        (click)="navigateToLogin()"
+        type="button"
+        class="registerForm__redirect"
+      >
+        Prijavi se
+      </button>
+    </span>
+  </form>
+</div>

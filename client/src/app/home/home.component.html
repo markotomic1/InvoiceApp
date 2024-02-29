@@ -1,0 +1,80 @@
+<div *ngIf="modalIsVisible" class="overlay">
+  <app-modal (closeModal)="closeModal()" [modalType]="modalType"></app-modal>
+</div>
+<div class="home">
+  <div class="home__top">
+    <button class="button__add" (click)="openAddModal()">Dodaj Fakturu</button>
+  </div>
+  <div class="home__bottom" *ngIf="fakture$ | async as faktureData">
+    <div class="faktura__container" *ngFor="let faktura of faktureData">
+      <td class="faktura__buttons">
+        <button class="button__delete" (click)="obrisiFakturu(faktura.broj)">
+          Obrisi</button
+        ><button
+          class="button__edit"
+          (click)="izmjeniFakturu(faktura.broj)"
+          type="button"
+        >
+          Izmjeni
+        </button>
+      </td>
+      <table class="faktura">
+        <thead>
+          <th>Broj</th>
+          <th>Datum</th>
+          <th>Partner</th>
+          <th>Iznos Bez PDV</th>
+          <th>Posto Rabata</th>
+          <th>Rabat</th>
+          <th>Iznos Sa Rabatom Bez PDV</th>
+          <th>PDV</th>
+          <th>Ukupno</th>
+        </thead>
+        <tbody>
+          <tr class="faktura__info">
+            <td>{{ faktura.broj }}</td>
+            <td>{{ faktura.datum }}</td>
+            <td>{{ faktura.partner }}</td>
+            <td>{{ faktura.iznosBezPdv }}</td>
+            <td>{{ faktura.postoRabata }}</td>
+            <td>{{ faktura.rabat }}</td>
+            <td>{{ faktura.iznosSaRabatomBezPdv }}</td>
+            <td>{{ faktura.pdv }}</td>
+            <td>{{ faktura.ukupno }}</td>
+          </tr>
+          <tr class="empty"></tr>
+          <tr class="faktura-stavke__naslov">
+            <th colspan="3">Stavke Fakture:</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr class="empty-sm"></tr>
+          <tr class="faktura-stavke">
+            <td>Rbr</td>
+            <td>Naziv Artikla</td>
+            <td>Kolicina</td>
+            <td>Cijena</td>
+            <td>Iznos Bez Pdv</td>
+            <td>Posto Rabata</td>
+            <td>Iznos Sa Rabatom Bez PDV</td>
+            <td>Rabat</td>
+            <td>PDV</td>
+            <td>Ukupno</td>
+          </tr>
+          <tr *ngFor="let stavkaFakture of faktura.stavkeFakture">
+            <td>{{ stavkaFakture.rbr }}</td>
+            <td>{{ stavkaFakture.nazivArtikla }}</td>
+            <td>{{ stavkaFakture.kolicina }}</td>
+            <td>{{ stavkaFakture.cijena }}</td>
+            <td>{{ stavkaFakture.iznosBezPdv }}</td>
+            <td>{{ stavkaFakture.postoRabata }}</td>
+            <td>{{ stavkaFakture.iznosSaRabatomBezPdv }}</td>
+            <td>{{ stavkaFakture.rabat }}</td>
+            <td>{{ stavkaFakture.pdv }}</td>
+            <td>{{ stavkaFakture.ukupno }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

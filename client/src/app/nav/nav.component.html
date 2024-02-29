@@ -1,0 +1,10 @@
+<nav class="navbar">
+  <h1 class="navbar__heading">Aplikacija za upravljanje fakturama</h1>
+  <button
+    class="navbar__button"
+    (click)="logout()"
+    *ngIf="authService.isLoggedIn$ | async"
+  >
+    Logout
+  </button>
+</nav>
