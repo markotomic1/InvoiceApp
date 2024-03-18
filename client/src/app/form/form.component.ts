@@ -172,6 +172,8 @@ export class FormComponent implements OnInit, OnDestroy {
     const ukupno = this.addFloats(iznosSaRabatomBezPdv, pdv);
 
     this.stavkeFakture.at(index).patchValue({
+      kolicina,
+      cijena,
       iznosBezPdv,
       rabat,
       iznosSaRabatomBezPdv,

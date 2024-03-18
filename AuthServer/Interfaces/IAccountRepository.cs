@@ -11,5 +11,7 @@ namespace AuthServer.Interfaces
         public Task<List<UserKey>> DohvatiKljuceve();
         public void SacuvajAuthCode(AuthCode authCode);
         public Task<AuthCode> DohvatiAuthCode(string code);
+        public void AddRefreshToken(RefreshToken refreshToken);
+        public Task<RefreshToken> GetRefreshToken(string refreshToken);
     }
 }

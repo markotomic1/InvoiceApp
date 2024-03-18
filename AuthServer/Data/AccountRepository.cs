@@ -49,5 +49,17 @@ namespace AuthServer.Data
         {
             return await _context.AuthCodes.FirstOrDefaultAsync(x => x.CodeChallenge == code);
         }
+
+        public void AddRefreshToken(RefreshToken refreshToken)
+        {
+            _context.RefreshTokens.Add(refreshToken);
+        }
+
+        public async Task<RefreshToken> GetRefreshToken(string refreshToken)
+        {
+            return await _context.RefreshTokens
+                .Where(rt => rt.RefreshTokenString == refreshToken)
+                .FirstOrDefaultAsync();
+        }
     }
 }

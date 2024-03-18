@@ -12,5 +12,6 @@ namespace AuthServer.Data
         public DbSet<Korisnik> Korisnici { get; set; }
         public DbSet<UserKey> UserKey { get; set; }
         public DbSet<AuthCode> AuthCodes { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

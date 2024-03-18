@@ -16,6 +16,22 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgrespw
       - POSTGRES_DB=zadatakdb
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-h",
+          "postgres",
+          "-p",
+          "5432",
+          "-q",
+          "-U",
+          "postgres",
+        ]
+      interval: 5s
+      timeout: 2s
+      retries: 5
 
   auth-server:
     container_name: auth-server
@@ -27,7 +43,9 @@ services:
     ports:
       - 5001:8080
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+        restart: true
 
   resource-server:
     container_name: resource-server
@@ -39,7 +57,9 @@ services:
     ports:
       - 5002:8080
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+        restart: true
 
   client:
     container_name: client

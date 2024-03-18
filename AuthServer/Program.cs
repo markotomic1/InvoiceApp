@@ -31,6 +31,7 @@ app.MapGet("/.well-known/openid-configuration", async (context) =>
 {
     var configuration = new OpenIdConfigurationDto
     {
+
         Issuer = "http://localhost:5001",
         AuthorizationEndpoint = "http://localhost:5001/auth/authorize",
         TokenEndpoint = "http://localhost:5001/auth/token",
@@ -47,6 +48,7 @@ app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
+
 try
 {
     var context = services.GetRequiredService<DataContext>();
@@ -59,6 +61,7 @@ catch (Exception ex)
     var logger = services.GetService<ILogger<Program>>();
     logger.LogError(ex, "An error occured during migration");
 }
+
 
 app.Run();
 

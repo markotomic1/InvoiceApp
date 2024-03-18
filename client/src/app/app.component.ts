@@ -9,7 +9,7 @@ const authConfig: AuthConfig = {
 
   responseType: 'code',
 
-  scope: 'resource server authorization',
+  scope: 'offline_access',
 
   showDebugInformation: true,
   logoutUrl: '/',

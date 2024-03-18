@@ -119,7 +119,38 @@ namespace AuthServer.Controllers
         {
             if (form["grant_type"] == "refresh_token")
             {
-                //generisanje refresh tokena
+                var refreshToken1 = await _accountRepository.GetRefreshToken(form["refresh_token"]);
+
+                if (
+                    refreshToken1 == null ||
+                    !refreshToken1.IsValid ||
+                    refreshToken1.ExpiryDate < DateTime.UtcNow)
+                {
+                    return BadRequest();
+                }
+
+                var newRefreshTokenString = Guid.NewGuid().ToString();
+                refreshToken1.IsValid = false;
+                var newRefreshToken1 = new RefreshToken
+                {
+                    RefreshTokenString = newRefreshTokenString,
+                    ExpiryDate = DateTime.UtcNow.AddMinutes(60),
+                    IsValid = true
+                };
+                _accountRepository.AddRefreshToken(newRefreshToken1);
+
+                var tokenPublicKeyModelRefresh = GenerateAccessTokenAndPublicKey();
+
+                _accountRepository.DodajKljuc(tokenPublicKeyModelRefresh.PublicKey);
+
+                await _accountRepository.SacuvajIzmjene();
+                return Ok(new
+                {
+                    access_token = tokenPublicKeyModelRefresh.AccessToken,
+                    token_type = "Bearer",
+                    refresh_token = newRefreshTokenString
+                });
+
             }
 
             var protector = _dataProtectionProvider.CreateProtector("oauth");
@@ -145,12 +176,23 @@ namespace AuthServer.Controllers
 
             _accountRepository.DodajKljuc(tokenPublicKeyModel.PublicKey);
 
-            var refreshToken = GenerateRefreshToken();
+            var newRefreshToken = new RefreshToken
+            {
+                RefreshTokenString = Guid.NewGuid().ToString(),
+                ExpiryDate = DateTime.UtcNow.AddMinutes(60),
+                IsValid = true
+            };
+            _accountRepository.AddRefreshToken(newRefreshToken);
 
 
             await _accountRepository.SacuvajIzmjene();
 
-            return Ok(new { access_token = tokenPublicKeyModel.AccessToken, token_type = "Bearer", refreshToken });
+            return Ok(new
+            {
+                access_token = tokenPublicKeyModel.AccessToken,
+                token_type = "Bearer",
+                refresh_token = newRefreshToken.RefreshTokenString
+            });
         }
 
 
@@ -214,16 +256,6 @@ namespace AuthServer.Controllers
             };
 
             return response;
-        }
-
-        private static string GenerateRefreshToken()
-        {
-            var randomNumber = new byte[64];
-
-            using var generator = RandomNumberGenerator.Create();
-            generator.GetBytes(randomNumber);
-
-            return Convert.ToBase64String(randomNumber);
         }
 
     }

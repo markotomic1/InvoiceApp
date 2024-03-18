@@ -53,15 +53,16 @@ export class AxiosService {
 
     if (accessTokenExpiration && accessTokenExpiration < currentTime) {
       try {
-        // await this.oauthService.refreshToken();
+        await this.oauthService.refreshToken();
+      } catch (error) {
         this.oauthService.logOut();
         this.toastr.warning(
           'Molimo vas da se ponovo prijavite',
           'Sessija istekla'
         );
         this.router.navigateByUrl('/');
-      } catch (error) {
         console.error('Error refreshing token:', error);
+        // Handle token refresh error as needed
       }
     }
   }
