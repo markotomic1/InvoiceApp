@@ -11,7 +11,7 @@ This is an application for managing invoices, built using Angular 16 for the fro
 
 ## Technologies Used
 - **Angular 16**: Frontend development framework for building dynamic web applications.
-- **.NET 18**: Backend framework for building robust and scalable web APIs.
+- **.NET 8**: Backend framework for building robust and scalable web APIs.
 - **HTML/CSS**: Markup and styling languages for designing user interfaces.
 - **TypeScript**: Programming language for building Angular applications.
 - **C#**: Programming language for building .NET applications.
